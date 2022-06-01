@@ -8,6 +8,9 @@ WEBFLOW_SOURCE_JSON_DIR = "/tmp/airbyte_local/webflow-collections"
 WEBFLOW_DEST_JSON_DIR = "/Users/arm/Documents/test-webflow-backup-1"
 
 """ 
+WARNING: Before executing this code, ensure that git has been initialized in the destination directory 
+as instructed below. 
+
 Create a new repository on Github, and manually create a new git repository
 inside the directory: <WEBFLOW_DEST_JSON_DIR>. Just follow instructions from github such as the following:
 
