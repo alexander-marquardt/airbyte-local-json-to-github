@@ -6,15 +6,16 @@ from datetime import datetime
 """ 
 This code is a proof-of concept that shows an example of how to drive local data that has been
 downloaded with Airbyte's "Local JSON" destination connector into Github. 
+See: https://docs.airbyte.com/integrations/destinations/local-json/
 
 Background:
-- Airbyte stores downloaded data in one file per stream. 
-- Each file contains many  records that have been downloaded from the stream
-- Each file is formatted as JSONL (JSON Lines). 
+- Airbyte stores downloaded data as one file per stream. 
+- Each file is formatted as JSONL (JSON Lines), and may contain many lines. 
 - Each line inside the JSONL file is a new json record. 
 
-To make it easier to track changes in Git this script converts each JSONL file into a folder, 
-and each line (which is also a record) becomes its own file inside the corresponding folder.  
+To make it easier to track changes in Git, this script converts each JSONL file into a folder, 
+and each line (which is also a record) becomes its own file inside the corresponding folder. After 
+converting the downloaded data into the new format, the script pushes the changes to github. 
 
 I anticipate that this script can be executed as a cron job or (eventually) via a webhook to reformat
 the data downloaded by Airbyte and push it into github. 
@@ -31,7 +32,7 @@ WARNING: Before executing this code, ensure that git has been initialized in the
 as instructed below. 
 
 Create a new repository on Github, and manually create a new git repository
-inside the directory: <DEST_DIR_FOR_GITHUB>. Just follow instructions from github such as the following:
+inside the directory: <DEST_DIR_FOR_GITHUB>, by following instructions given on github (such as the following):
 
 echo "# <your github repo name>" >> README.md
 git init
