@@ -3,6 +3,25 @@ import os, json
 import git
 from datetime import datetime
 
+""" 
+This code is a proof-of concept that shows an example of how to drive local data that has been
+downloaded with Airbyte's "Local JSON" destination connector into Github. 
+
+Background:
+- Airbyte stores downloaded data in one file per stream. 
+- Each file contains many  records that have been downloaded from the stream
+- Each file is formatted as JSONL (JSON Lines). 
+- Each line inside the JSONL file is a new json record. 
+
+To make it easier to track changes in Git this script converts each JSONL file into a folder, 
+and each line (which is also a record) becomes its own file inside the corresponding folder.  
+
+I anticipate that this script can be executed as a cron job or (eventually) via a webhook to reformat
+the data downloaded by Airbyte and push it into github. 
+
+Initially this was written to push data that is downloade from a CMS (Webflow) into Github. 
+
+"""
 
 AIRBYTE_LOCAL_SOURCE_JSON = "/tmp/airbyte_local/webflow-collections"
 DEST_DIR_FOR_GITHUB = "/Users/arm/Documents/test-webflow-backup-1"
