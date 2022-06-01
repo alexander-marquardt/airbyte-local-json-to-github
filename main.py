@@ -75,8 +75,13 @@ def push_to_github():
         # open the git repo if it exists
         repo = git.Repo(DEST_DIR_FOR_GITHUB)
     except git.InvalidGitRepositoryError:
-        # create the repo if doesn't exist
-        print("Please create the git repository on github and then locally")
+        # Tell the user to create the repo if it doesn't exist yet
+        raise Exception(f"""
+        Please create a git repository on github where the data will be pushed into. 
+        After that, be sure to follow the github-provided instructions to create a local git repository 
+        in your local destination (git) folder defined by the constant DEST_DIR_FOR_GITHUB. 
+        Currently your local folder is: {DEST_DIR_FOR_GITHUB}
+        """)
 
     repo.git.add(f"{DEST_DIR_FOR_GITHUB}/.")
     try:
