@@ -1,6 +1,7 @@
 
-import os, json
-import git
+import os
+import json
+import git # Dependency on https://gitpython.readthedocs.io/en/stable/intro.html - pip install GitPython
 from datetime import datetime
 
 """ 
