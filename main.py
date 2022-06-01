@@ -5,7 +5,21 @@ from datetime import datetime
 
 
 WEBFLOW_SOURCE_JSON_DIR = "/tmp/airbyte_local/webflow-collections"
-WEBFLOW_DEST_JSON_DIR = "/Users/arm/Documents/webflow-for-git"
+WEBFLOW_DEST_JSON_DIR = "/Users/arm/Documents/test-webflow-backup-1"
+
+""" 
+Create a new repository on Github, and manually create a new git repository
+inside the directory: <WEBFLOW_DEST_JSON_DIR>. Just follow instructions from github such as the following:
+
+echo "# <your github repo name>" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/alexander-marquardt/<your github repo name>
+git push -u origin main
+
+"""
 
 
 def loop_over_jsonl_and_write_to_output(source_filename_with_path, destination_folder_name_with_path):
@@ -39,19 +53,17 @@ def push_to_github():
         repo = git.Repo(WEBFLOW_DEST_JSON_DIR)
     except git.InvalidGitRepositoryError:
         # create the repo if doesn't exist
-        repo = git.Repo.init(WEBFLOW_DEST_JSON_DIR)
+        print("Please create the git repository on github and then locally")
 
     repo.git.add(f"{WEBFLOW_DEST_JSON_DIR}/.")
-    repo.git.commit(m=f"Commit by script: {__file__} on {datetime.now().isoformat()}")
-
-    origin = repo.remotes.origin
-
     try:
-        origin = repo.create_remote('origin', "https://github.com/alexander-marquardt/airbyte-webflow-2.git")
-    except:
-        print("unable to create origin - does it exist?")
+        repo.git.commit(m=f"Commit by script: {__file__} on {datetime.now().isoformat()}")
+    except Exception as e:
+        print(f"Ignoring exception: {e}")
 
-    origin.push(refspec="master")
+    print("Pushing to origin")
+    repo.remotes.origin.push()
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
