@@ -48,13 +48,13 @@ git push -u origin main
 
 def loop_over_jsonl_and_write_to_output(source_filename_with_path, destination_folder_name_with_path):
 
-    with open(source_filename_with_path, "r") as r_file:
+    with open(source_filename_with_path, "r", encoding='utf8') as r_file:
         for json_line in r_file:
             json_obj = json.loads(json_line)
             _airbyte_ab_id = json_obj["_airbyte_ab_id"]
             destination_file = f"{destination_folder_name_with_path}/{_airbyte_ab_id}"
-            with open(destination_file, "w") as w_file:
-                print(json.dumps(json_obj), file=w_file)
+            with open(destination_file, "w", encoding='utf8') as w_file:
+                json.dump(json_obj, w_file, ensure_ascii=False)
 
 
 def walk_json_files():
