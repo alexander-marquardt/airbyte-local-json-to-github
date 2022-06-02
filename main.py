@@ -54,7 +54,7 @@ def loop_over_jsonl_and_write_to_output(source_filename_with_path, destination_f
             _airbyte_ab_id = json_obj["_airbyte_ab_id"]
             destination_file = f"{destination_folder_name_with_path}/{_airbyte_ab_id}"
             with open(destination_file, "w") as w_file:
-                print(json_obj, file=w_file)
+                print(json.dumps(json_obj), file=w_file)
 
 
 def walk_json_files():
